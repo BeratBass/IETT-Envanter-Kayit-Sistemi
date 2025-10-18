@@ -1,0 +1,44 @@
+﻿@{
+    ViewData["Title"] = "Envanter Kayıt Sistemi";
+}
+
+<div class="sidebar">
+    <div class="sidebar-header">
+        <div class="highlight">
+            Envanter Kayıt Sistemi
+        </div>
+    </div>
+    <ul class="sidebar-menu">
+        <li class="sidebar-section">Kayıt</li>
+        
+        <li class="sidebar-item" onclick="window.location.href='/Islemler/Islemler';">
+                <span class="icon">🚚</span>
+                İşlemler
+            </li>
+
+        <li class="sidebar-section">Ürün İşlemleri</li>
+
+        <li class="sidebar-item" onclick="window.location.href='/Islemler/UrunKategorileri';">
+            <span class="icon">📁</span> Ürün Kategorileri
+        </li>
+
+        <li class="sidebar-item">
+            <span class="icon">📊</span> Ürün Stokları
+        </li>
+        <li class="sidebar-item" onclick="window.location.href='/Islemler/UrunModelleri';">
+            <span class="icon">🏷️</span> Ürünler
+        </li>
+        <li class="sidebar-item">
+            <span class="icon">🏢</span> Depolar
+        </li>
+        <li class="sidebar-item logout">
+            <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
+                <button type="submit" class="btn-logout">
+                    <span class="icon">🔙</span> Çıkış Yap
+                </button>
+            </form>
+        </li>
+    </ul>
+</div>
+
+<link href="~/css/anasayfa.css" rel="stylesheet" />

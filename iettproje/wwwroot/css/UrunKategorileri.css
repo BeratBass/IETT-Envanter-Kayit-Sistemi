@@ -1,0 +1,307 @@
+﻿body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f4;
+}
+
+.main-content {
+    margin-left: 260px;
+    padding: 20px;
+    padding-top: 60px;
+    position: relative;
+}
+
+.sidebar-item.urunkategorileri {
+    background-color: #4a5d6b;
+    color: #fff;
+    font-weight: bold;
+    border-left: 4px solid #34495e;
+}
+
+.sidebar {
+    width: 260px;
+    height: 100vh;
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    padding-top: 30px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    overflow-y: auto; /* Kenar çubuğunun kaydırılabilir olmasını sağlar */
+}
+
+.sidebar-header {
+    text-align: center;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #34495e;
+}
+
+.highlight {
+    background-color: #e74c3c;
+    padding: 15px 10px;
+    border-radius: 8px;
+    color: white;
+    font-size: 22px;
+    font-weight: 600;
+    display: inline-block;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar-menu {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar-item {
+    padding: 12px 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    color: #ecf0f1;
+    transition: background-color 0.3s, color 0.3s;
+    font-size: 16px;
+}
+
+    .sidebar-item:hover {
+        background-color: #34495e;
+        color: #e74c3c;
+    }
+
+.btn-logout {
+    background: none;
+    border: none;
+    color: #ecf0f1;
+    cursor: pointer;
+    padding: 0;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    transition: color 0.3s;
+}
+
+    .btn-logout:hover {
+        color: #e74c3c;
+    }
+
+    .btn-logout .icon {
+        margin-right: 10px;
+    }
+
+.icon {
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+.sidebar-section {
+    padding: 10px 20px;
+    text-transform: uppercase;
+    font-size: 13px;
+    color: #95a5a6;
+    border-bottom: 1px solid #34495e;
+    margin-top: 20px;
+    letter-spacing: 0.5px;
+}
+
+/************************************************/
+.card-body {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    margin-left: 20px; /* Konumlandırma için boşluk bırakıldı */
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #34495e;
+}
+
+.form-control {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.button-group {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.button-group button {
+        border: none;
+        border-radius: 5px;
+        padding: 8px 12px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        color: #fff;
+        font-weight: 600;
+ }
+
+/* Buton Renkleri */
+.btn-primary {
+    background-color: #5dade2;
+}
+
+.btn-primary:hover {
+        background-color: #3498db;
+    }
+
+.btn-success {
+    background-color: #28a745;
+    color: #fff;
+    border: 1px solid #28a745;
+}
+
+.btn-success:hover {
+        background-color: #218838;
+        border-color: #1e7e34;
+    }
+
+.btn-warning {
+    background-color: #ffc107;
+    color: #212529;
+    border: 1px solid #ffc107;
+}
+
+ .btn-warning:hover {
+        background-color: #e0a800;
+        border-color: #d39e00;
+    }
+
+.btn-info {
+    background-color: #007bff;
+    color: #fff;
+    border: 1px solid #007bff;
+}
+ 
+.btn-info:hover {
+        background-color: #0056b3;
+        border-color: #004080;
+    }
+
+/* Durum Renkleri */
+.status-active {
+    color: green;
+    font-weight: bold;
+}
+
+.status-inactive {
+    color: red;
+    font-weight: bold;
+}
+.urunler-table {
+    position: relative;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    z-index: 1000;
+    margin-bottom: 20px;
+    border: 1px solid #e0e0e0;
+}
+
+.urunler-table h2 {
+        color: #2c3e50;
+        font-size: 22px;
+        text-align: center;
+        font-weight: bold;
+        border-bottom: 2px solid #e74c3c; /* Başlık altına çizgi */
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+    }
+
+    .urunler-table hr {
+        border: none;
+        height: 1px;
+        background-color: #e0e0e0;
+        margin: 20px 0; /* Çizgi ile tablo arasındaki boşluk */
+    }
+
+    .urunler-table table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .urunler-table th,
+    .urunler-table td {
+        padding: 10px;
+        text-align: left;
+        border: 1px solid #e0e0e0; /* Hücreler arasında çizgi */
+    }
+
+    .urunler-table th {
+        background-color: #f4f4f4;
+        color: #2c3e50;
+    }
+
+    .urunler-table tr:hover {
+        background-color: #f9f9f9;
+    }
+
+    .urunler-table hr {
+        border: none;
+        height: 1px;
+        background-color: #e0e0e0;
+        margin: 20px 0; /* Çizgi ile tablo arasındaki boşluk */
+    }
+
+.pagination {
+    margin-top: 20px;
+    text-align: center;
+}
+
+    .pagination a {
+        margin: 0 5px;
+        padding: 8px 12px;
+        background-color: #2980b9;
+        color: #fff;
+        border-radius: 4px;
+        text-decoration: none;
+        transition: background-color 0.3s;
+    }
+
+        .pagination a:hover {
+            background-color: #3498db;
+        }
+
+    .pagination span {
+        margin: 0 10px;
+        padding: 8px 12px;
+        background-color: #ecf0f1;
+        color: #34495e;
+        border-radius: 4px;
+    }
+
+.alert-box {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: auto; /* İçeriğe göre genişliği ayarlama */
+    max-width: 80%; /* Maksimum genişlik, isterseniz ayarlayabilirsiniz */
+    z-index: 1000; /* Mesajın diğer içeriklerin üstünde görünmesini sağlar */
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border-radius: 4px; /* Köşeleri yuvarlatma */
+}
+
+.alert-danger {
+    color: #721c24;
+}
+
+.alert-success {
+    color: #155724;
+}

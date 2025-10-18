@@ -1,0 +1,79 @@
+﻿@model LoginVM
+@{
+    ViewData["Title"] = "Giriş Ekranı";
+}
+<div class="container-fluid vh-100 d-flex align-items-center bg-light">
+    <div class="row w-100">
+        <div class="col-md-6 d-flex flex-column justify-content-center align-items-center border-right position-relative">
+            <div class="left-side">
+                <div class="logo-container">
+                    <img src="/Images/ibb.png" alt="ibb" class="ibb">
+                    <img src="/Images/İETT.png" alt="iett" class="iett">
+                </div>
+                <div class="vertical-line"></div>
+            </div>
+        </div>
+        <div class="col-md-6 d-flex flex-column justify-content-center align-items-center">
+            <div class="login-container">
+                <div class="red-box mb-4">
+                    <h1 class="display-4 text-center header-title-small">@ViewData["Title"]</h1>
+                </div>
+                <form method="post" asp-controller="Account" asp-action="Login">
+                    <div asp-validation-summary="ModelOnly" class="text-danger small"></div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="EPosta" class="form-label">E-Posta</label>
+                        <input asp-for="EPosta" class="form-control" />
+                        <span asp-validation-for="EPosta" class="text-danger small"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label asp-for="Sifre" class="form-label">Şifre</label>
+                        <input asp-for="Sifre" class="form-control" type="password" />
+                        <span asp-validation-for="Sifre" class="text-danger small"></span>
+                    </div>
+                    <div class="form-group d-grid mb-3">
+                        <button type="submit" name="action" value="login" class="btn btn-primary d-block login-btn">
+                            <i class="fa-solid fa-right-to-bracket me-2"></i>Giriş Yap
+                        </button>
+                    </div>
+                </form>
+
+                <form method="get" asp-action="Register">
+                    <div class="form-group d-grid mb-3">
+                        <button type="submit" class="btn btn-secondary d-block register-btn">
+                            <i class="fa-solid fa-user-plus me-2"></i>Kayıt Oluştur
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="header-box d-flex justify-content-center align-items-center">
+    <h1 class="header-title">Envanter Kayıt Sistemi</h1>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+<div id="alertBox" class="alert-box">@TempData["SuccessMessage"]</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var alertBox = document.getElementById('alertBox');
+        if (alertBox.textContent.trim() !== "") {
+            alertBox.style.display = 'block'; // Uyarı kutusunu göster
+
+            setTimeout(function () {
+                alertBox.style.display = 'none'; // Uyarı kutusunu gizle
+                window.location.href = '@Url.Action("Login", "Account")'; // 3 saniye sonra login sayfasına yönlendir
+            }, 3000); // 3000 milisaniye = 3 saniye
+        }
+    });
+</script>
+

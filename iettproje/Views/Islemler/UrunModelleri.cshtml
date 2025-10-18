@@ -1,0 +1,185 @@
+﻿@model UrunModelleriVM
+@{
+    ViewData["Title"] = "Envanter Kayıt Sistemi";
+}
+@{
+    var isAdmin = User.IsInRole("admin");
+}
+
+<link href="~/css/urunmodelleri.css" rel="stylesheet" />
+
+<div class="sidebar">
+    <div class="sidebar-header">
+        <div class="highlight">
+            Envanter Kayıt Sistemi
+        </div>
+    </div>
+    <ul class="sidebar-menu">
+        <li class="sidebar-section">Kayıt</li>
+        <li class="sidebar-item" onclick="window.location.href='/Islemler/Islemler' ;">
+            <span class="icon">🚚</span> İşlemler
+        </li>
+        <li class="sidebar-section">Ürün İşlemleri</li>
+
+        <li class="sidebar-item" onclick="window.location.href='/Islemler/UrunKategorileri';">
+            <span class="icon">📁</span> Ürün Kategorileri
+        </li>
+        <li class="sidebar-item">
+            <span class="icon">📊</span> Ürün Stokları
+        </li>
+        <li class="sidebar-item urunmodelleri">
+            <span class="icon">🏷️</span> Ürünler
+        </li>
+        <li class="sidebar-item">
+            <span class="icon">🏢</span> Depolar
+        </li>
+        <li class="sidebar-item logout">
+            <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
+                <button type="submit" class="btn-logout">
+                    <span class="icon">🔙</span> Çıkış Yap
+                </button>
+            </form>
+        </li>
+    </ul>
+</div>
+
+@if(isAdmin)
+{  <div class="main-content">
+        <div class="filter-section">
+            <h2>🔍 Ürün Oluştur</h2>
+            <form asp-action="UrunModelleri" method="post">
+                <input type="hidden" name="pageNumber" value="@Model.PageNumber" />
+                <input type="hidden" name="pageSize" value="@Model.PageSize" />
+
+                <div class="form-group mb-3">
+                    <label asp-for="Marka" class="form-label">Marka:</label>
+                    <input asp-for="Marka" class="form-control" placeholder="Marka girin" />
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Modeli" class="form-label">Model:</label>
+                    <input asp-for="Modeli" class="form-control" placeholder="Model girin" />
+                    <span asp-validation-for="Modeli" class="text-danger small"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Kategorisi" class="form-label">Kategoriler:</label>
+                    <select asp-for="Kategorisi" class="form-select">
+                        <option value="">Seçin</option>
+                        @foreach (var kategori in Model.Kategoriler)
+                        {
+                            <option value="@kategori.Urunler">@kategori.Urunler</option>
+                        }
+                    </select>
+                    <span asp-validation-for="Kategorisi" class="text-danger small"></span>
+                </div>
+
+                <div class="button-group">
+                    <button type="submit" name="action" value="Urunolustur" class="btn btn-primary">Ürün Oluştur</button>
+                </div>
+            </form>
+        </div>
+    </div>
+}
+
+  <div class="main-content">
+    <div class="operations-table">
+        <h2>📊 Ürünler Tablosu</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Marka</th>
+                    <th>Model</th>
+                    <th>Kategori</th>
+                    <th>İşlem</th>
+                    <th>Durum</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var kategori in Model.Items)
+
+                {
+                    <tr>
+                        <td>@kategori.Marka</td>
+                        <td>@kategori.Modeli</td>
+                        <td>@kategori.Kategorisi</td>
+                        <td>
+                            @if (kategori.Durum)
+                            {
+                                <span class="status-active">Aktif</span>
+                            }
+                            else
+                            {
+                                <span class="status-inactive">Pasif</span>
+                            }
+                        </td>
+                        <td>
+                             @if (isAdmin)
+
+                                {
+                                    <form asp-action="ActivateModel" method="post" style="display:inline;">
+                                        <input type="hidden" name="id" value="@kategori.Id" />
+                                        <button type="submit" class="btn btn-success" @(kategori.Durum ? "disabled" : "")>Aktifleştir</button>
+                                    </form>
+
+                                    <form asp-action="DeactivateModel" method="post" style="display:inline;">
+                                        <input type="hidden" name="id" value="@kategori.Id" />
+                                        <button type="submit" class="btn btn-warning" @(!kategori.Durum ? "disabled" : "")>Pasifleştir</button>
+                                    </form>
+
+                                    <a href="@Url.Action("EditModeller", "Edit", new { id = kategori.Id })" class="btn btn-info">Düzenle</a>
+                                }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="pagination">
+            @if (Model.PageNumber > 1)
+            {
+                <a href="@Url.Action("UrunModelleri", new { pageNumber = Model.PageNumber - 1, pageSize = Model.PageSize })">« Önceki</a>
+            }
+
+            <span>Sayfa @(Model.PageNumber) / @(Model.TotalPages)</span>
+
+            @if (Model.PageNumber < Model.TotalPages)
+            {
+                <a href="@Url.Action("UrunModelleri", new { pageNumber = Model.PageNumber + 1, pageSize = Model.PageSize })">Sonraki »</a>
+            }
+        </div>
+    </div>
+
+  </div>
+
+
+@{
+    var errorMessage = TempData["ErrorMessage"];
+    var successMessage = TempData["SuccessMessage"];
+}
+
+<div id="alertBox" class="alert-box" style="display:none;">
+    @if (errorMessage != null)
+    {
+        <div class="alert alert-danger">@errorMessage</div>
+    }
+    else if (successMessage != null)
+    {
+        <div class="alert alert-success">@successMessage</div>
+    }
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var alertBox = document.getElementById('alertBox');
+        if (alertBox.textContent.trim() !== "") {
+            alertBox.style.display = 'block'; // Uyarı kutusunu göster
+
+            setTimeout(function () {
+                alertBox.style.display = 'none'; // Uyarı kutusunu gizle
+            }, 3000); // 3000 milisaniye = 3 saniye
+        }
+    });
+</script>
+
+

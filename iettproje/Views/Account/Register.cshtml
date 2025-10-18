@@ -1,0 +1,100 @@
+﻿@model RegisterVM
+@{
+    ViewData["Title"] = "Kullanıcı Kayıt";
+}
+
+<div class="container-fluid d-flex flex-column justify-content-center align-items-center">
+    <div class="row w-100">
+        <div class="col-md-6 d-flex flex-column justify-content-center align-items-center border-right">
+            <div class="left-side">
+                <div class="logo-container">
+                    <img src="/Images/ibb.png" alt="ibb" class="logo">
+                    <img src="/Images/İETT.png" alt="iett" class="logo">
+                </div>
+                <div class="vertical-line"></div>
+            </div>
+        </div>
+        <div class="col-md-6 d-flex flex-column justify-content-center align-items-center">
+            <div class="register-container">
+                <div class="red-box mb-2">
+                    <h1 class="display-4 text-center">@ViewData["Title"]</h1>
+                </div>
+                <form asp-action="Register" method="post" id="registrationForm">
+                    <div class="form-row mb-3">
+                        <div class="form-group col-md-6">
+                            <label asp-for="Isim" class="form-label">İsim</label>
+                            <input asp-for="Isim" class="form-control form-control-sm" />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label asp-for="Soyisim" class="form-label">Soyisim</label>
+                            <input asp-for="Soyisim" class="form-control form-control-sm" />
+                        </div>
+                    </div>
+
+                    <div class="form-row mb-3">
+                        <div class="form-group col-md-6 mb-2">
+                            <label asp-for="Sifre" class="form-label">Şifre</label>
+                            <input asp-for="Sifre" type="password" class="form-control form-control-sm" />
+                        </div>
+                        <div class="form-group col-md-6 mb-2">
+                            <label asp-for="SicilNo" class="form-label">Sicil No</label>
+                            <input asp-for="SicilNo" class="form-control form-control-sm" />
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="EPosta" class="form-label">E-Posta</label>
+                        <input asp-for="EPosta" type="email" class="form-control form-control-sm" />
+                        @Html.ValidationMessageFor(model => model.EPosta, "", new { @class = "custom-error" })
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="TelefonNumarasi" class="form-label">Telefon Numarası</label>
+                        <input asp-for="TelefonNumarasi" type="tel" class="form-control form-control-sm" pattern="[0-9]{10}" maxlength="10" placeholder="5XXXXXXXXXX" />
+                    </div>
+
+                    <div class="form-group d-grid mb-2">
+                        <button type="submit" class="btn btn-primary btn-sm d-block register-btn">
+                            <i class="fa-solid fa-user-plus me-2"></i>Kayıt Oluştur
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="header-box d-flex justify-content-center align-items-center">
+    <h1 class="header-title">Envanter Kayıt Sistemi</h1>
+</div>
+
+<div id="alertBox" class="alert-box">Lütfen tüm alanları doldurun ve seçim yapın.</div>
+
+<script>
+    document.getElementById('registrationForm').addEventListener('submit', function (event) {
+        const fields = document.querySelectorAll('#registrationForm input, #registrationForm select');
+        let formIsValid = true;
+
+        fields.forEach(field => {
+            if (field.type === 'text' || field.type === 'password' || field.type === 'email' || field.type === 'tel') {
+                if (!field.value.trim()) {
+                    formIsValid = false;
+                }
+            } else if (field.tagName === 'SELECT' && !field.value) {
+                formIsValid = false;
+            }
+        });
+
+        if (!formIsValid) {
+            event.preventDefault(); // Formun gönderilmesini engelle
+            const alertBox = document.getElementById('alertBox');
+            alertBox.style.display = 'block'; // alertBox'u göster
+
+            setTimeout(() => {
+                alertBox.style.display = 'none'; // 2 saniye sonra alertBox'u gizle
+            }, 2000); // 2000 milisaniye = 2 saniye
+        }
+    });
+</script>
+
+<link href="~/css/register.css" rel="stylesheet" />

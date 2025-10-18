@@ -1,0 +1,219 @@
+﻿    @model IslemlerListVM
+    @{
+        ViewData["Title"] = "Envanter Kayıt Sistemi";
+    }
+    @{
+        var isAdmin = User.IsInRole("admin");
+    }
+
+    <link href="~/css/islemler.css" rel="stylesheet" />
+
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="highlight">
+                Envanter Kayıt Sistemi
+            </div>
+        </div>
+        <ul class="sidebar-menu">
+            <li class="sidebar-section">Kayıt</li>
+            <li class="sidebar-item islemler">
+                <span class="icon">🚚</span> İşlemler
+            </li>
+        
+            <li class="sidebar-section">Ürün İşlemleri</li>
+
+            <li class="sidebar-item" onclick="window.location.href='/Islemler/UrunKategorileri';">
+                <span class="icon">📁</span> Ürün Kategorileri
+            </li>
+            <li class="sidebar-item">
+                <span class="icon">📊</span> Ürün Stokları
+            </li>
+            <li class="sidebar-item" onclick="window.location.href='/Islemler/UrunModelleri';">
+                <span class="icon">🏷️</span> Ürünler
+            </li>
+            <li class="sidebar-item">
+                <span class="icon">🏢</span> Depolar
+            </li>
+            <li class="sidebar-item logout">
+                <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
+                    <button type="submit" class="btn-logout">
+                        <span class="icon">🔙</span> Çıkış Yap
+                    </button>
+                </form>
+            </li>
+        </ul>
+    </div>
+
+    @{
+        var benzersizMarkalar = new HashSet<string>(Model.Modeller.Select(m => m.Marka));
+        var markaModelList = Model.Modeller
+            .GroupBy(m => m.Marka)
+            .ToDictionary(
+                g => g.Key,
+                g => g.Select(m => m.Modeli).ToArray()
+            );
+        var markaModelJson = Json.Serialize(markaModelList);
+    }
+
+
+    @if (isAdmin)
+    {
+    
+        <div class="main-content">
+            <div class="filter-section">
+                <h2>🔍 Kayıt Oluştur</h2>
+                <form asp-action="Islemler" method="post">
+                    <input type="hidden" name="pageNumber" value="@Model.PageNumber" />
+                    <input type="hidden" name="pageSize" value="@Model.PageSize" />
+
+                    <div class="form-group mb-3">
+                        <label asp-for="Sicil" class="form-label">Sicil Arama:</label>
+                        <input asp-for="Sicil" class="form-control" placeholder="Sicil numarası girin" />
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="Marka" class="form-label">Marka:</label>
+                        <select id="markaSelect" asp-for="Marka" class="form-select">
+                            <option value="">Seçin</option>
+                            @foreach (var marka in benzersizMarkalar)
+
+                            {
+                                <option value="@marka">@marka</option>
+                            }
+                        </select>
+                        <span asp-validation-for="Marka" class="text-danger small"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="Modeli" class="form-label">Model:</label>
+                        <select id="modelSelect" asp-for="Modeli" class="form-select">
+                            <option value="">Seçin</option>
+                        </select>
+                        <span asp-validation-for="Modeli" class="text-danger small"></span>
+                    </div>
+
+                    <div class="form-group mb-3 form-special">
+                        <label asp-for="Adet" class="form-label">Adet:</label>
+                        <input asp-for="Adet" class="form-control" placeholder="Adet girin" />
+                    </div>
+
+                    <div class="form-group mb-3 form-special">
+                        <label asp-for="Tarih" class="form-label">Tarih:</label>
+                        <input asp-for="Tarih" class="form-control" type="date" />
+                    </div>
+
+                    <div class="button-group">
+                        <button type="submit" name="action" value="Filtrele" class="btn btn-primary">Filtrele</button>
+                        <button type="submit" name="action" value="Olustur" class="btn btn-success">Oluştur</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    }
+
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const markaSelect = document.getElementById('markaSelect');
+                const modelSelect = document.getElementById('modelSelect');
+
+                // JSON formatında dönüştürülmüş veriyi alıyoruz
+                const markaModelList = @Html.Raw(markaModelJson);
+
+                markaSelect.addEventListener('change', function () {
+                    const selectedMarka = markaSelect.value;
+                    // Model seçim kutusunu temizle
+                    while (modelSelect.options.length > 1) {
+                        modelSelect.remove(1);
+                    }
+
+                    // Seçilen markaya göre modelleri ekle
+                    if (selectedMarka && markaModelList[selectedMarka]) {
+                        markaModelList[selectedMarka].forEach(function (model) {
+                            const option = document.createElement('option');
+                            option.value = model;
+                            option.textContent = model;
+                            modelSelect.appendChild(option);
+                        });
+                    }
+                });
+            });
+        </script>
+
+
+    <div class="main-content">
+
+        <div class="operations-table">
+            <h2>📊 Kayıt Tablosu</h2>
+            <table>
+                <thead>
+                    <tr>
+
+                        <th>Sicil</th>
+                        <th>Marka</th>
+                        <th>Model</th>
+                        <th>Adet</th>
+                        <th>Tarih</th>
+                        <th>Durum</th>
+                        <th>İşlem</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var kategori in Model.Items)
+
+                    {
+                        <tr>
+                            <td>@kategori.Sicil</td>
+                            <td>@kategori.Marka</td>
+                            <td>@kategori.Modeli</td>
+                            <td>@kategori.Adet</td>
+                             <td>@kategori.Tarih.ToString("dd.MM.yyyy")</td>
+                        <td>
+                                @if (kategori.Durum)
+                                {
+                                    <span class="status-active">Aktif</span>
+                                }
+                                else
+                                {
+                                    <span class="status-inactive">Pasif</span>
+                                }
+                            </td>
+                            <td>
+                                @if (isAdmin)
+
+                                {
+                                    <form asp-action="ActivateIslem" method="post" style="display:inline;">
+                                        <input type="hidden" name="id" value="@kategori.Id" />
+                                        <button type="submit" class="btn btn-success" @(kategori.Durum ? "disabled" : "")>Aktifleştir</button>
+                                    </form>
+
+                                    <form asp-action="DeactivateIslem" method="post" style="display:inline;">
+                                        <input type="hidden" name="id" value="@kategori.Id" />
+                                        <button type="submit" class="btn btn-warning" @(!kategori.Durum ? "disabled" : "")>Pasifleştir</button>
+                                    </form>
+
+                                    <a href="@Url.Action("EditIslemler", "Edit", new { id = kategori.Id })" class="btn btn-info">Düzenle</a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="pagination">
+                @if (Model.PageNumber > 1)
+                {
+                    <a href="@Url.Action("UrunModelleri", new { pageNumber = Model.PageNumber - 1, pageSize = Model.PageSize })">« Önceki</a>
+                }
+
+                <span>Sayfa @(Model.PageNumber) / @(Model.TotalPages)</span>
+
+                @if (Model.PageNumber < Model.TotalPages)
+                {
+                    <a href="@Url.Action("UrunModelleri", new { pageNumber = Model.PageNumber + 1, pageSize = Model.PageSize })">Sonraki »</a>
+                }
+            </div>
+        </div>
+    </div>
+
+
