@@ -10,7 +10,7 @@ Sistem, rol bazlı erişim kontrolü sunarak **"Admin"** ve **"Kullanıcı"** ro
 ## 🎥 Proje GIF'i
 
 <p align="center">
-  <img src="./envanterprojesi.gif" alt="İETT Envanter Kayıt Sistemi Önizleme" width="600"/>
+  <img src="./envanterprojesi.gif" alt="İETT Envanter Kayıt Sistemi Önizleme" width="500"/>
   <br>
   <em>Uygulamanın temel işlevlerini gösteren kısa bir demo</em>
 </p>
@@ -109,4 +109,5 @@ Projeyi yerel makinenizde çalıştırmak için aşağıdaki adımları izleyin:
 
 Bu proje, **eğitim ve portföy amacıyla** oluşturulmuş açık kaynak bir projedir.  
 Kaynak gösterilerek kullanılabilir, geliştirilebilir veya genişletilebilir. ❤️
+
 
