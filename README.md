@@ -107,7 +107,7 @@ Projeyi yerel makinenizde çalıştırmak için aşağıdaki adımları izleyin:
 ## 🪪 Lisans
 
 Bu proje, **eğitim ve portföy amacıyla** oluşturulmuş açık kaynak bir projedir.  
-Kaynak gösterilerek kullanılabilir, geliştirilebilir veya genişletilebilir. ❤️
+
 
 
 
