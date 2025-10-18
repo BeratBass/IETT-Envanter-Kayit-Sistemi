@@ -50,26 +50,21 @@ Sistem, rol bazlı erişim kontrolü sunarak **"Admin"** ve **"Kullanıcı"** ro
 
 ## 🛠️ Kullanılan Teknolojiler
 
-Bu projenin geliştirilmesinde aşağıdaki teknolojiler ve mimariler kullanılmıştır:
+Aşağıda projede kullanılan tüm teknolojiler ve görevleri yer almaktadır:
 
-### 🧠 Backend
-- `C#`
-- `ASP.NET Core MVC` (Web uygulaması altyapısı)
-
-### 💾 Veritabanı
-- `Entity Framework Core` (ORM)
-- `Microsoft SQL Server`
-- `EF Core Migrations` (Veritabanı şema yönetimi)
-
-### 🎨 Frontend
-- `HTML5`
-- `CSS3` (Özel sidebar ve form stilleri ile)
-- `JavaScript (ES6+)` (Dinamik formlar ve bildirimler için)
-- `Bootstrap` (Hızlı prototipleme ve grid sistemi için)
-
-### 🔐 Kimlik Doğrulama
-- `ASP.NET Core Cookie Authentication`
-- `MD5` (Parola Hashing)
+| 💡 Kategori | 🧩 Teknoloji / Araç | 📝 Açıklama |
+|-------------|--------------------|-------------|
+| **Backend** | `C#` | Uygulama programlama dili |
+|  | `ASP.NET Core MVC` | Web uygulaması altyapısı |
+| **Veritabanı** | `Entity Framework Core` | ORM – veritabanı işlemleri için |
+|  | `Microsoft SQL Server` | Veritabanı yönetim sistemi |
+|  | `EF Core Migrations` | Veritabanı şema yönetimi |
+| **Frontend** | `HTML5` | Sayfa yapısı ve etiketleme |
+|  | `CSS3` | Tasarım, özel sidebar ve form stilleri |
+|  | `JavaScript (ES6+)` | Dinamik formlar, bildirim sistemi |
+|  | `Bootstrap` | Responsive grid sistemi ve stil bileşenleri |
+| **Kimlik Doğrulama** | `ASP.NET Core Cookie Authentication` | Oturum ve kullanıcı yönetimi |
+|  | `MD5 + Salt` | Parola güvenliği için hashing yöntemi |
 
 ---
 
