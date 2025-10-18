@@ -98,10 +98,9 @@ Projeyi yerel makinenizde çalıştırmak için aşağıdaki adımları izleyin:
 
 ---
 
-## 👨‍💻 Geliştirici
+👨‍💻 **Developer:** Berat Baş  
+🔗 [LinkedIn](https://www.linkedin.com/in/berat-baş-6a91a3274) | [GitHub](https://github.com/BeratBass)
 
-**Berat Baş**  
-📧 [GitHub Profilim](https://github.com/beratbas)
 
 ---
 
@@ -109,5 +108,6 @@ Projeyi yerel makinenizde çalıştırmak için aşağıdaki adımları izleyin:
 
 Bu proje, **eğitim ve portföy amacıyla** oluşturulmuş açık kaynak bir projedir.  
 Kaynak gösterilerek kullanılabilir, geliştirilebilir veya genişletilebilir. ❤️
+
 
 
